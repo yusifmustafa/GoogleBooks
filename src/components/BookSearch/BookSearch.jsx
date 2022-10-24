@@ -43,12 +43,6 @@ function BookSearch() {
   const handleOnClick = () => {
     console.log(searchValue);
     setSearch(searchValue.current.value);
-    // const searchData = data.Books.filter((item) =>
-    //   item.title?.includes(search)
-    // );
-    // data.Books = searchData;
-    // setData(data);
-    // console.log("dadadadada", data);
   };
 
   const mainHeader = () => {
