@@ -94,8 +94,8 @@ function BookSearch() {
                 alt={item.title}
                 style={{ width: "auto", height: "260px" }}
               />
-              <CardHeader>
-                <h3>{item.author}</h3>
+              <CardHeader style={{ background: "#4193C0", color: "#fff",letterSpacing:"1.2px" }}>
+                <h4>{item.author}</h4>
               </CardHeader>
               <CardBody>
                 <CardTitle className="badge badge-warning">
