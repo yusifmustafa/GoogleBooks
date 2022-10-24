@@ -21,8 +21,7 @@ import { Navigate } from "react-router-dom";
 function BookSearch() {
   const searchValue = useRef();
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
-  console.log("data", data);
+  const [search, setSearch] = useState(""); 
 
   if (setSearch === "") {
     Navigate("/navigate");
@@ -40,8 +39,7 @@ function BookSearch() {
       .then((rsp) => setData(rsp.data));
   }, []);
 
-  const handleOnClick = () => {
-    console.log(searchValue);
+  const handleOnClick = () => { 
     setSearch(searchValue.current.value);
   };
 
