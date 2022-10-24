@@ -30,3 +30,8 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
+
+#cards {
+  display: flex;
+  justify-content: center;
+}

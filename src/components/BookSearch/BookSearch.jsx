@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./BookSearch.css";
 import {
   InputGroup,
@@ -16,11 +16,18 @@ import {
 } from "reactstrap";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 function BookSearch() {
+  const searchValue = useRef();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   console.log("data", data);
+
+  if (setSearch === "") {
+    Navigate("/navigate");
+  }
+
   useEffect(() => {
     axios
       .get("https://bookshelves.p.rapidapi.com/books", {
@@ -34,13 +41,14 @@ function BookSearch() {
   }, []);
 
   const handleOnClick = () => {
-    const searchData = data.Books.filter((item) =>
-      item.title?.includes(search)
-    );
-    //const pushData = data.Books.push(searchData);
-    data.Books = searchData;
-    setData(data);
-    console.log("dadadadada", data);
+    console.log(searchValue);
+    setSearch(searchValue.current.value);
+    // const searchData = data.Books.filter((item) =>
+    //   item.title?.includes(search)
+    // );
+    // data.Books = searchData;
+    // setData(data);
+    // console.log("dadadadada", data);
   };
 
   const mainHeader = () => {
@@ -56,11 +64,13 @@ function BookSearch() {
         </div>
         <div style={{ width: "60%", zIndex: 2, display: "flex" }}>
           <InputGroup>
-            <Input
+            <input
               name="search"
+              className="form-control"
               placeholder="Book Search"
               type="text"
-              onChange={(e) => setSearch(e.target.value)}
+              ref={searchValue}
+              // onChange={(e) => setSearch(e.target.value)}
             />
           </InputGroup>
           <Button
@@ -79,59 +89,69 @@ function BookSearch() {
     <div>
       {mainHeader()}
       <div id="books">
-        {(data.Books ? data.Books : []).map((item, key) => (
-          <div key={item.id}>
-            <Card
-              style={{
-                width: "300px",
-                margin: "1rem",
-                height: "650px",
-                marginTop: "1.5rem",
-              }}
-            >
-              <CardImg
-                src={item.imgUrl}
-                alt={item.title}
-                style={{ width: "auto", height: "260px" }}
-              />
-              <CardHeader style={{ background: "#4193C0", color: "#fff",letterSpacing:"1.2px" }}>
-                <h4>{item.author}</h4>
-              </CardHeader>
-              <CardBody>
-                <CardTitle className="badge badge-warning">
-                  review ({item.review})
-                </CardTitle>
-
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  {item.title}
-                </CardSubtitle>
-                <CardDeck style={{ letterSpacing: "1.5px" }}>
-                  <small className="badge badge-info">
-                    price({item.price})
-                  </small>
-                </CardDeck>
-                <CardText
+        {(data.Books ? data.Books : [])
+          .filter((item) =>
+            item?.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((item, key) => (
+            <div key={item.id} id="cards">
+              <Card
+                style={{
+                  width: "300px",
+                  margin: "1rem",
+                  height: "650px",
+                  marginTop: "1.5rem",
+                }}
+              >
+                <CardImg
+                  src={item.imgUrl}
+                  alt={item.title}
+                  style={{ width: "auto", height: "260px" }}
+                />
+                <CardHeader
                   style={{
-                    letterSpacing: "1px",
-                    height: "95px",
-                    overflow: "hidden",
+                    background: "#4193C0",
+                    color: "#fff",
+                    letterSpacing: "1.2px",
                   }}
-                  title={item.description}
                 >
-                  {item.description}
-                </CardText>
-                <CardLink>
-                  <a
-                    style={{ color: "seagreen", float: "left" }}
-                    href={item.source}
+                  <h4>{item.author}</h4>
+                </CardHeader>
+                <CardBody>
+                  <CardTitle className="badge badge-warning">
+                    review ({item.review})
+                  </CardTitle>
+
+                  <CardSubtitle className="mb-2 text-muted" tag="h6">
+                    {item.title}
+                  </CardSubtitle>
+                  <CardDeck style={{ letterSpacing: "1.5px" }}>
+                    <small className="badge badge-info">
+                      price({item.price})
+                    </small>
+                  </CardDeck>
+                  <CardText
+                    style={{
+                      letterSpacing: "1px",
+                      height: "95px",
+                      overflow: "hidden",
+                    }}
+                    title={item.description}
                   >
-                    {item.source}
-                  </a>
-                </CardLink>
-              </CardBody>
-            </Card>
-          </div>
-        ))}
+                    {item.description}
+                  </CardText>
+                  <CardLink>
+                    <a
+                      style={{ color: "seagreen", float: "left" }}
+                      href={item.source}
+                    >
+                      {item.source}
+                    </a>
+                  </CardLink>
+                </CardBody>
+              </Card>
+            </div>
+          ))}
       </div>
     </div>
   );
