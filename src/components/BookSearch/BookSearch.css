@@ -26,3 +26,7 @@ body {
   z-index: 1;
 }
 
+#books {
+  display: flex;
+  flex-direction: row;
+}

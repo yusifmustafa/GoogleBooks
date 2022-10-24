@@ -3,7 +3,7 @@ import BookSearch from "./components/BookSearch/BookSearch";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <BookSearch />
     </div>
   );

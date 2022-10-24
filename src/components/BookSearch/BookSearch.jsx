@@ -33,7 +33,6 @@ function BookSearch() {
   }, []);
 
   const handleOnClick = () => {
-    console.log("search", search);
     const searchData = data.Books.filter((item) =>
       item.title?.includes(search)
     );
@@ -78,36 +77,40 @@ function BookSearch() {
   return (
     <div>
       {mainHeader()}
-      {(data.Books ? data.Books : []).map((item, key) => (
-        <div key={item.id}>
-          <Card
-            style={{
-              width: "17rem",
-              margin: "1rem",
-            }}
-          >
-            <CardImg
-              src={item.imgUrl}
-              alt={item.title}
-              style={{ width: "auto", height: "260px" }}
-            />
-            <CardHeader>
-              <h3>{item.author}</h3>
-            </CardHeader>
-            <CardBody>
-              <CardTitle>review ({item.review})</CardTitle>
+      <div id="books">
+        {(data.Books ? data.Books : []).map((item, key) => (
+          <div key={item.id}>
+            <Card
+              style={{
+                width: "17rem",
+                margin: "1rem",
+              }}
+            >
+              <CardImg
+                src={item.imgUrl}
+                alt={item.title}
+                style={{ width: "auto", height: "260px" }}
+              />
+              <CardHeader>
+                <h3>{item.author}</h3>
+              </CardHeader>
+              <CardBody>
+                <CardTitle>review ({item.review})</CardTitle>
 
-              <CardSubtitle className="mb-2 text-muted" tag="h6">
-                {item.title}
-              </CardSubtitle>
-              <CardDeck style={{ letterSpacing: "1.5px" }}>
-                <small style={{ fontWeight: "700" }}>price({item.price})</small>
-              </CardDeck>
-              <CardText>{item.description}</CardText>
-            </CardBody>
-          </Card>
-        </div>
-      ))}
+                <CardSubtitle className="mb-2 text-muted" tag="h6">
+                  {item.title}
+                </CardSubtitle>
+                <CardDeck style={{ letterSpacing: "1.5px" }}>
+                  <small style={{ fontWeight: "700" }}>
+                    price({item.price})
+                  </small>
+                </CardDeck>
+                <CardText>{item.description}</CardText>
+              </CardBody>
+            </Card>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
