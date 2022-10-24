@@ -12,6 +12,7 @@ import {
   CardImg,
   CardHeader,
   CardDeck,
+  CardLink,
 } from "reactstrap";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
@@ -84,7 +85,8 @@ function BookSearch() {
               style={{
                 width: "300px",
                 margin: "1rem",
-                height:"600px"
+                height: "650px",
+                marginTop: "1.5rem",
               }}
             >
               <CardImg
@@ -96,13 +98,17 @@ function BookSearch() {
                 <h3>{item.author}</h3>
               </CardHeader>
               <CardBody>
-                <CardTitle>review ({item.review})</CardTitle>
+                <CardTitle className="badge badge-warning">
+                  review ({item.review})
+                </CardTitle>
 
                 <CardSubtitle className="mb-2 text-muted" tag="h6">
                   {item.title}
                 </CardSubtitle>
                 <CardDeck style={{ letterSpacing: "1.5px" }}>
-                  <small>price({item.price})</small>
+                  <small className="badge badge-info">
+                    price({item.price})
+                  </small>
                 </CardDeck>
                 <CardText
                   style={{
@@ -114,6 +120,14 @@ function BookSearch() {
                 >
                   {item.description}
                 </CardText>
+                <CardLink>
+                  <a
+                    style={{ color: "seagreen", float: "left" }}
+                    href={item.source}
+                  >
+                    {item.source}
+                  </a>
+                </CardLink>
               </CardBody>
             </Card>
           </div>
