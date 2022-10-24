@@ -82,8 +82,9 @@ function BookSearch() {
           <div key={item.id}>
             <Card
               style={{
-                width: "17rem",
+                width: "300px",
                 margin: "1rem",
+                height:"600px"
               }}
             >
               <CardImg
@@ -101,11 +102,18 @@ function BookSearch() {
                   {item.title}
                 </CardSubtitle>
                 <CardDeck style={{ letterSpacing: "1.5px" }}>
-                  <small style={{ fontWeight: "700" }}>
-                    price({item.price})
-                  </small>
+                  <small>price({item.price})</small>
                 </CardDeck>
-                <CardText>{item.description}</CardText>
+                <CardText
+                  style={{
+                    letterSpacing: "1px",
+                    height: "95px",
+                    overflow: "hidden",
+                  }}
+                  title={item.description}
+                >
+                  {item.description}
+                </CardText>
               </CardBody>
             </Card>
           </div>
